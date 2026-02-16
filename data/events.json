@@ -1,0 +1,8 @@
+[
+  { "id": "1", "month": "4月", "name": "PTA総会", "description": "年度活動計画・予算の承認", "status": "published" },
+  { "id": "2", "month": "6月", "name": "交通安全教室", "description": "親子参加型の交通安全講習", "status": "published" },
+  { "id": "3", "month": "7月", "name": "夏祭り", "description": "校庭での模擬店、盆踊り", "status": "published" },
+  { "id": "4", "month": "10月", "name": "運動会サポート", "description": "テント設営、受付、誘導", "status": "published" },
+  { "id": "5", "month": "12月", "name": "もちつき大会", "description": "地域のお年寄りと交流", "status": "published" },
+  { "id": "6", "month": "2月", "name": "卒業を祝う会", "description": "6年生への感謝の会", "status": "published" }
+]

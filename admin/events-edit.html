@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>年間行事管理 | ふじみDXラボ小学校PTA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body class="admin-body">
+  <header class="admin-header">
+    <h1>ふじみDXラボ小学校PTA 管理画面</h1>
+    <div class="admin-header-right">
+      <a href="../index.html" target="_blank">サイトを表示 ↗</a>
+      <a href="#" id="logout-btn">ログアウト</a>
+    </div>
+  </header>
+
+  <nav class="admin-sidebar">
+    <a href="index.html"><span class="admin-sidebar-icon">&#128202;</span>ダッシュボード</a>
+    <a href="news-edit.html"><span class="admin-sidebar-icon">&#128240;</span>お知らせ管理</a>
+    <a href="events-edit.html" class="active"><span class="admin-sidebar-icon">&#128197;</span>年間行事管理</a>
+    <a href="reports-edit.html"><span class="admin-sidebar-icon">&#128221;</span>活動報告管理</a>
+  </nav>
+
+  <main class="admin-main">
+    <div id="list-view">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+        <h2 style="font-size:20px;color:#4A90A4;">年間行事管理</h2>
+        <button class="admin-btn admin-btn-primary" onclick="showEditor()">＋ 新規作成</button>
+      </div>
+      <div class="admin-card">
+        <table class="admin-table">
+          <thead><tr><th>月</th><th>行事名</th><th>内容</th><th>ステータス</th><th></th></tr></thead>
+          <tbody id="events-table"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="edit-view" style="display:none;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+        <button class="admin-btn admin-btn-secondary" onclick="showList()">&larr; 戻る</button>
+        <h2 style="font-size:20px;color:#4A90A4;" id="form-title">新規作成</h2>
+      </div>
+      <div class="admin-card">
+        <div class="admin-form">
+          <input type="hidden" id="edit-id">
+          <label>月</label>
+          <select id="edit-month">
+            <option value="4月">4月</option>
+            <option value="5月">5月</option>
+            <option value="6月">6月</option>
+            <option value="7月">7月</option>
+            <option value="8月">8月</option>
+            <option value="9月">9月</option>
+            <option value="10月">10月</option>
+            <option value="11月">11月</option>
+            <option value="12月">12月</option>
+            <option value="1月">1月</option>
+            <option value="2月">2月</option>
+            <option value="3月">3月</option>
+          </select>
+          <label>行事名</label>
+          <input type="text" id="edit-name" placeholder="行事名を入力">
+          <label>内容</label>
+          <textarea id="edit-description" placeholder="行事の内容を入力"></textarea>
+          <label>ステータス</label>
+          <select id="edit-status">
+            <option value="published">公開</option>
+            <option value="draft">下書き</option>
+          </select>
+          <div class="admin-form-actions">
+            <button class="admin-btn admin-btn-primary" onclick="saveItem()">保存する</button>
+            <button class="admin-btn admin-btn-danger" id="delete-btn" onclick="deleteItem()" style="display:none;">削除</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="admin-toast" id="toast"></div>
+
+  <script src="../js/events-store.js"></script>
+  <script src="../js/auth.js"></script>
+  <script>
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function renderList() {
+      const events = EventsStore.getAll();
+      document.getElementById('events-table').innerHTML = events.map(e => {
+        const st = e.status === 'published' ? '<span class="status-badge status-published">公開中</span>' : '<span class="status-badge status-draft">下書き</span>';
+        return `<tr>
+          <td>${e.month}</td><td>${e.name}</td><td>${e.description}</td><td>${st}</td>
+          <td><a href="#" onclick="editItem('${e.id}');return false;" style="color:#4A90A4;font-size:13px;font-weight:600;">編集</a></td>
+        </tr>`;
+      }).join('');
+      if (events.length === 0) {
+        document.getElementById('events-table').innerHTML = '<tr><td colspan="5" style="color:#999;text-align:center;padding:24px;">行事がありません</td></tr>';
+      }
+    }
+
+    function showList() {
+      document.getElementById('list-view').style.display = '';
+      document.getElementById('edit-view').style.display = 'none';
+      renderList();
+    }
+
+    function showEditor(id) {
+      document.getElementById('list-view').style.display = 'none';
+      document.getElementById('edit-view').style.display = '';
+      if (id) {
+        const item = EventsStore.getById(id);
+        if (!item) return showList();
+        document.getElementById('edit-id').value = item.id;
+        document.getElementById('edit-month').value = item.month;
+        document.getElementById('edit-name').value = item.name;
+        document.getElementById('edit-description').value = item.description;
+        document.getElementById('edit-status').value = item.status;
+        document.getElementById('form-title').textContent = '編集';
+        document.getElementById('delete-btn').style.display = '';
+      } else {
+        document.getElementById('edit-id').value = '';
+        document.getElementById('edit-month').value = '4月';
+        document.getElementById('edit-name').value = '';
+        document.getElementById('edit-description').value = '';
+        document.getElementById('edit-status').value = 'published';
+        document.getElementById('form-title').textContent = '新規作成';
+        document.getElementById('delete-btn').style.display = 'none';
+      }
+    }
+
+    function editItem(id) { showEditor(id); }
+
+    function saveItem() {
+      const id = document.getElementById('edit-id').value;
+      const name = document.getElementById('edit-name').value.trim();
+      if (!name) { alert('行事名を入力してください'); return; }
+      EventsStore.save({
+        id: id || undefined,
+        month: document.getElementById('edit-month').value,
+        name,
+        description: document.getElementById('edit-description').value,
+        status: document.getElementById('edit-status').value,
+      });
+      showToast('保存しました');
+      showList();
+    }
+
+    function deleteItem() {
+      const id = document.getElementById('edit-id').value;
+      if (!id) return;
+      if (!confirm('本当に削除しますか？')) return;
+      EventsStore.delete(id);
+      showToast('削除しました');
+      showList();
+    }
+
+    window.onAdminAuth = function () {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get('id');
+      if (id) { showEditor(id); } else { renderList(); }
+    };
+
+    document.getElementById('logout-btn').addEventListener('click', (e) => {
+      e.preventDefault();
+      sessionStorage.removeItem('admin_auth_hash');
+      location.reload();
+    });
+  </script>
+</body>
+</html>
