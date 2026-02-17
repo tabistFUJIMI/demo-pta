@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>活動報告 | ふじみDXラボ小学校PTA</title>
+  <meta name="description" content="ふじみDXラボ小学校PTAの活動報告。イベントやボランティア活動の様子をお伝えします。">
+  <link rel="canonical" href="https://example.com/reports.html">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://example.com/reports.html">
+  <meta property="og:title" content="活動報告 | ふじみDXラボ小学校PTA">
+  <meta property="og:description" content="ふじみDXラボ小学校PTAの活動報告。イベントやボランティア活動の様子をお伝えします。">
+  <meta property="og:site_name" content="ふじみDXラボ小学校PTA">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="活動報告 | ふじみDXラボ小学校PTA">
+  <meta name="twitter:description" content="ふじみDXラボ小学校PTAの活動報告。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://example.com/" },
+      { "@type": "ListItem", "position": 2, "name": "活動報告", "item": "https://example.com/reports.html" }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <a href="index.html">
+          <span>ふじみDXラボ小学校PTA</span>
+          <p class="logo-sub">富士市立ふじみDXラボ小学校</p>
+        </a>
+      </div>
+      <button class="menu-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+      <nav class="nav">
+        <ul>
+          <li><a href="index.html">ホーム</a></li>
+          <li><a href="news.html">お知らせ</a></li>
+          <li><a href="index.html#events">年間行事</a></li>
+          <li><a href="reports.html" class="active">活動報告</a></li>
+          <li><a href="index.html#organization">組織紹介</a></li>
+          <li><a href="index.html#contact">お問い合わせ</a></li>
+        </ul>
+      </nav>
+      <div class="header-tel">
+        <p class="tel-label">PTA事務局</p>
+        <p class="tel-number">0545-00-4444</p>
+      </div>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <p class="section-title-en" style="color:rgba(255,255,255,0.5);">Reports</p>
+      <h2>活動報告</h2>
+    </div>
+  </section>
+
+  <section style="padding:60px 0;">
+    <div class="container">
+      <p class="section-desc">PTAの活動やイベントの様子をお伝えします。</p>
+      <div class="content-grid" id="reports-page-grid"></div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">
+          <p class="footer-company">ふじみDXラボ小学校PTA</p>
+          <p class="footer-address">〒416-0000 静岡県富士市◇◇町5-6-7</p>
+          <p class="footer-tel">TEL: 0545-00-4444（PTA事務局）</p>
+        </div>
+        <div class="footer-nav">
+          <ul>
+            <li><a href="index.html">ホーム</a></li>
+            <li><a href="news.html">お知らせ</a></li>
+            <li><a href="reports.html">活動報告</a></li>
+            <li><a href="index.html#organization">組織紹介</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="copyright">&copy; 2026 ふじみDXラボ小学校PTA All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <style>
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+    }
+    .content-card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .content-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+    .content-card-img {
+      position: relative;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+    }
+    .content-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .content-card-body {
+      padding: 20px;
+    }
+    .content-card-body h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+    .content-card-body p {
+      margin: 0;
+      font-size: 14px;
+      color: #666;
+      line-height: 1.6;
+    }
+    .content-card-meta {
+      margin-top: 8px;
+      font-size: 13px;
+      color: #999;
+    }
+    @media (max-width: 600px) {
+      .content-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <script src="js/reports-store.js" defer></script>
+  <script src="js/main.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      await ReportsStore.init();
+      const grid = document.getElementById('reports-page-grid');
+      const allReports = ReportsStore.getPublished();
+
+      grid.innerHTML = allReports.map(r => {
+        const date = r.date
+          ? new Date(r.date).toLocaleDateString('ja-JP', { year:'numeric', month:'2-digit', day:'2-digit' }).replace(/\//g,'.')
+          : new Date(r.createdAt).toLocaleDateString('ja-JP', { year:'numeric', month:'2-digit', day:'2-digit' }).replace(/\//g,'.');
+        return `
+          <div class="content-card">
+            ${r.image ? `<div class="content-card-img"><img src="${r.image}" alt="${r.title}" loading="lazy"></div>` : ''}
+            <div class="content-card-body">
+              <h3>${r.title}</h3>
+              <p>${r.body || r.description || ''}</p>
+              <p class="content-card-meta">${date}</p>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      if (allReports.length === 0) {
+        grid.innerHTML = '<p style="color:#999;text-align:center;padding:40px 0;">現在活動報告はありません。</p>';
+      }
+    });
+  </script>
+</body>
+</html>
