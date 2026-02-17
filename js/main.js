@@ -98,10 +98,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     reobserve(eventsList);
   }
 
-  // --- Dynamic Reports Cards (Top page) ---
+  // --- Dynamic Reports Preview (Top page: 3件) ---
   const reportsList = document.getElementById('reports-list');
   if (reportsList && typeof ReportsStore !== 'undefined') {
-    const reports = ReportsStore.getPublished();
+    const reports = ReportsStore.getPublished().slice(0, 3);
     reportsList.innerHTML = '<div class="report-cards">' + reports.map(r => {
       const imgHtml = r.image
         ? `<div class="report-card-img"><img src="${r.image}" alt="${r.title}" loading="lazy"></div>`
